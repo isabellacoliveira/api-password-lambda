@@ -125,3 +125,97 @@ sam delete --stack-name password-api-lambda-itau
 See the [AWS SAM developer guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html) for an introduction to SAM specification, the SAM CLI, and serverless application concepts.
 
 Next, you can use AWS Serverless Application Repository to deploy ready to use Apps that go beyond hello world samples and learn how authors developed their applications: [AWS Serverless Application Repository main page](https://aws.amazon.com/serverless/serverlessrepo/)
+
+---------------------------------------------------------------------------------
+
+## Prerequisites
+
+To run and deploy this Lambda project locally and on AWS, you will need to have the following tools installed:
+
+**AWS CLI** - You can install the AWS CLI from the official documentation: Install the AWS CLI.
+
+**SAM CLI** - The AWS Serverless Application Model (SAM) Command Line Interface (CLI) is an extension of the AWS CLI that simplifies the process of building and deploying serverless applications. You can install it by following the instructions here: Install the SAM CLI.
+
+**Docker** - SAM uses Docker to simulate the AWS environment locally. You can install Docker here.
+
+**Java 17** - The application uses Java, so you will need to install Java 17. Instructions can be found here.
+
+**Maven** - This project uses Maven for building and managing dependencies. You can install Maven here.
+
+## Setting Up IAM Credentials
+
+To interact with AWS resources (like Lambda and API Gateway), you must set up an IAM user and configure the AWS CLI with the proper credentials. Follow these steps:
+
+- Create a new IAM user:
+
+1) Log in to the AWS Management Console.
+2) Go to the IAM service and click on Users.
+3) Click Add user.
+4) Assign Programmatic access to allow access via AWS CLI and SDK.
+5) Attach necessary policies such as AdministratorAccess or the minimal permissions needed for 6) Lambda and API Gateway.
+7) Save the access keys and secret access keys for the IAM user. These will be used to configure the AWS CLI.
+
+## Configure the AWS CLI:
+
+Run the following command in your terminal to configure your AWS CLI:
+
+```plaintext
+  aws configure
+```
+
+Enter the Access Key ID, Secret Access Key, and region for your IAM user.
+
+## Creating a New SAM Project
+
+Initialize the SAM Project: Once the AWS CLI and SAM CLI are set up, run the following command to initialize a new SAM project:
+
+```plaintext
+  sam init
+```
+
+This will prompt you for several options. You can select the following based on your setup:
+
+- Choose a template: Select 1 for a basic "Hello World" Lambda function.
+- Runtime: Select java17 or whichever runtime you are using.
+- Package type: Choose Zip for packaging your Lambda function.
+
+## Deploy the Application:
+
+To deploy your Lambda function for the first time, run the following commands
+
+
+```plaintext
+  sam build
+  sam deploy --guided
+```
+
+During the deployment process, SAM will prompt you to provide configuration details:
+- Stack Name: Provide a unique name for your stack (e.g., password-api-lambda-itau).
+- AWS Region: Choose the region for deployment.
+- Confirm changes before deploy: Set to "yes" to manually approve changes before deployment.
+- Allow SAM CLI IAM role creation: Confirm that SAM can create IAM roles for the Lambda function.
+- Save arguments to samconfig.toml: Save configuration for future deployments.
+- After deployment, you will receive an API Gateway endpoint URL that you can use to invoke your Lambda function.
+
+## Running the Application Locally
+
+To test your Lambda function and API Gateway locally, use the SAM CLI to emulate the environment:
+
+```plaintext
+  sam build
+```
+
+## How can i test? 
+
+You can test this lambda: 
+
+1) AWS
+![AWS](./assets/aws.gif)
+
+2) API Gateway - Insomnia  
+![GTW](./assets/insomnia.gif)
+
+## DrawIO
+![DRAWIO](./assets/arquitetura.png)
+
+
